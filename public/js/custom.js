@@ -17,6 +17,7 @@ function test() {
 
   $("#navbarSupportedContent").on("click", "li", function (e) {
     $("#navbarSupportedContent ul li").removeClass("active");
+    console.log($(this).data().page)
     $(this).addClass("active");
     var activeWidthNewAnimHeight = $(this).innerHeight();
     var activeWidthNewAnimWidth = $(this).innerWidth();
@@ -32,19 +33,24 @@ function test() {
   });
 }
 
-$(document).ready(function () {
+$(document).ready(async function () {
   setTimeout(function () {
     test();
   });
 });
 
-$(window).on("resize", function () {
-  setTimeout(function () {
-    test();
+async function getPage(page) {
+  try {
+    const res = await $.ajax({
+      url: `/page/${page}`,
+      type: 'GET',
+      dataType: 'json',
+    });
+    $('#container').html(res.html)
+  } catch (error) {
+    console.log(error)
   }
-
-    , 500);
-});
+}
 
 $(".navbar-toggler").click(function () {
   $(".navbar-collapse").slideToggle(300);
@@ -58,31 +64,24 @@ $(".navbar-toggler").click(function () {
 jQuery(document).ready(function ($) {
   // Get current path and find target link
   var path = window.location.pathname.split("/").pop();
-
   // Account for home page with empty path
   if (path == "") {
-    path = "index.html";
+    path = "vehiculo";
   }
-
-  var target = $('#navbarSupportedContent ul li a[href="' + path + '"]');
+  var target = $('#navbarSupportedContent ul li a[href="/' + path + '"]');
   // Add active class to target link
   target.parent().addClass("active");
 });
 
-// Add active class on another page linked
-// ==========================================
-// $(window).on('load',function () {
-//     var current = location.pathname;
-//     console.log(current);
-//     $('#navbarSupportedContent ul li a').each(function(){
-//         var $this = $(this);
-//         // if the current path is like this link, make it active
-//         if($this.attr('href').indexOf(current) !== -1){
-//             $this.parent().addClass('active');
-//             $this.parents('.menu-submenu').addClass('show-dropdown');
-//             $this.parents('.menu-submenu').parent().addClass('active');
-//         }else{
-//             $this.parent().removeClass('active');
-//         }
-//     })
-// });
+$(document).on('click', '#logout_btn', async () => {
+  const token = $('input[name="_token"]').val()
+  console.log(token)
+  const res = await $.ajax({
+    url: '/logout',
+    type: 'POST',
+    data: {
+      _csrf: token
+    }
+  })
+  console.log(res)
+})

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-custom navbar-mainbg">
-  <a class="navbar-brand navbar-logo" href="#">Navbar</a>
+  <a class="navbar-brand navbar-logo" href="#">Control acceso</a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -10,23 +10,22 @@
         <div class="left"></div>
         <div class="right"></div>
       </div>
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+      <li class="nav-item" data-page="vehiculos">
+        <a class="nav-link" href="/vehiculo"><i class="fa fa-solid fa-car"></i> Vehículos</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>Address Book</a>
+      <li class="nav-item" data-page="administrador">
+        <a class="nav-link" href="/users"><i class="fa fa-solid fa-user-shield"></i> Administradores</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Components</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Calendar</a>
+      <li class="nav-item" data-page="personal">
+        <a class="nav-link" href="/personal"><i class="fa fa-solid fa-user"></i> Personal</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit" class="nav-link" href="javascript:void(0);" id="logout_btn"><i
+              class="fa fa-solid fa-right-from-bracket"></i>
+            Salir</button>
+        </form>
       </li>
     </ul>
   </div>
