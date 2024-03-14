@@ -11,6 +11,7 @@ class HomeController extends Controller {
    * @return \Illuminate\Contracts\Support\Renderable
    */
   public function index() {
-    return view('vehiculo.index');
+    $personal = \App\Models\Persona::all();
+    return view('vehiculo.index', ['personal' => $personal]);
   }
 }

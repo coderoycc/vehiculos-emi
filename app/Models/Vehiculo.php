@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehiculo extends Model {
   use HasFactory;
-  protected $fillable = [];
+  protected $fillable = ['placa', 'anio', 'color', 'detalle', 'tipo', 'modelo', 'persona_id', 'usuario_id'];
 
-  public function persona(){
+
+  public function persona() {
     return $this->belongsTo(Persona::class);
+  }
+  public function creado_por() {
+    return $this->belongsTo(User::class, 'usuario_id');
   }
 }

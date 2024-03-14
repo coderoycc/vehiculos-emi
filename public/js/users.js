@@ -1,15 +1,5 @@
 var tabla = null
 $(document).ready(async () => {
-  $("#placa").inputmask("mask", {
-    mask: "[9{3,4}]-Z{3}", // Acepta 3 o 4 números y 3 letras
-    placeholder: "_", // Quitar placeholder predeterminado
-    definitions: {
-      'Z': { // Definir Z como cualquier letra mayúscula o minúscula
-        validator: "[a-zA-Z]",
-        casing: "upper" // Mayúsculas por defecto
-      }
-    }
-  });
   await listar();
 })
 
@@ -18,24 +8,24 @@ $(document).on('submit', '#form_create', async (e) => {
   const data = $(e.target).serialize();
   try {
     const res = await $.ajax({
-      url: "/vehiculo/create",
+      url: "/users/create",
       type: "POST",
       data,
       dataType: "json",
     });
-    $("#vehiculo-new")
+    $("#user-new")
       .append(`<div class="alert alert-dismissible alert-success mt-2" role="alert">
-      Vehículo registrado exitosamente
+      Usuario registrado exitosamente, la contraseña es la misma que el usuario.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`);
     setTimeout(() => {
       $(".alert").alert("close");
       location.reload();
-    }, 2200);
+    }, 3500);
   } catch (error) {
-    $("#vehiculo-new")
+    $("#user-new")
       .append(`<div class="alert alert-dismissible alert-danger mt-2" role="alert">
-      Ocurrio un error al registrar vehículo, intente nuevamente.
+      Ocurrio un error al registrar al usuario, intente nuevamente.
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`);
     setTimeout(() => {
@@ -52,7 +42,7 @@ $(document).on('submit', '#form_create', async (e) => {
 
 async function listar() {
   const res = await $.ajax({
-    url: "/vehiculo/list",
+    url: "/users/list",
     type: "GET",
     dataType: "json",
   });
@@ -62,22 +52,20 @@ async function listar() {
 }
 function tablaHtml(data) {
   let html = '';
-  data.forEach(v => {
+  data.forEach(u => {
     html += `<tr>
-      <td>${v.id}</td>
-      <td>${v.tipo}</td>
-      <td>${v.color}</td>
-      <td>${v.placa}</td>
-      <td>${v.modelo ?? 'S/M'}</td>
-      <td>${v.persona.nombre}</td>
-      <td>${v.creado_por.usuario}</td>
+      <td>${u.id}</td>
+      <td>${u.nombre}</td>
+      <td>${u.usuario}</td>
+      <td>${u.rol}</td>
+      <td>${u.ci ?? ''}</td>
       <td></td>
     </tr>`;
   });
   if (html == '')
     html = `<tr class="text-center"><td colspan="8">No existen registros</td></tr>`;
-  $("#t_body_vehiculo").html(html);
-  tabla = $("#table_vehiculo").DataTable({
+  $("#t_body_users").html(html);
+  tabla = $("#table_users").DataTable({
     language: lenguaje,
     info: false,
     scrollX: true,

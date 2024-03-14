@@ -43,4 +43,8 @@ class User extends Authenticatable {
   protected $casts = [
     'password' => 'hashed',
   ];
+
+  public function creoVehiculo() {
+    return $this->hasMany(Vehiculo::class);
+  }
 }
