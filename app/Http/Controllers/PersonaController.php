@@ -22,4 +22,8 @@ class PersonaController extends Controller {
       return response()->json(['mensaje' => 'Error al guardar'], 500);
     }
   }
+  public function list(){
+    $personas = Persona::all();
+    return response()->json([ "personas" =>$personas, 'status' => true ],200);
+  }
 }

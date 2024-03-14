@@ -15,6 +15,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/personal', [PersonaController::class, 'index']);
 Route::post('/personal/create', [PersonaController::class, 'create']);
+Route::get('/personal/list', [PersonaController::class, 'list']);
 
 
 
