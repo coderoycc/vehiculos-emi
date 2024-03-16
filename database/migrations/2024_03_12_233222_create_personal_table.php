@@ -13,6 +13,8 @@ return new class extends Migration {
       $table->id();
       $table->string('nombre');
       $table->string('ci', 30)->unique();
+      $table->string('usuario', 30)->unique()->comment('por defecto CI');
+      $table->string('password');
       $table->string('celular', 30)->nullable();
       $table->string('cargo', 50)->nullable()->comment('Area donde trabaja');
     });

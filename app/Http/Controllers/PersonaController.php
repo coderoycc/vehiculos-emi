@@ -13,7 +13,9 @@ class PersonaController extends Controller {
     // $data = $request->all();
     $persona = new Persona();
     $persona->nombre = $request->nombre;
-    $persona->ci = $request->ci ?? '0';
+    $persona->ci = $request->ci;
+    $persona->usuario = $request->ci;
+    $persona->password = bcrypt($request->ci);
     $persona->celular = $request->celular ?? '0';
     $persona->cargo = $request->cargo;
     if ($persona->save()) {
@@ -22,8 +24,8 @@ class PersonaController extends Controller {
       return response()->json(['mensaje' => 'Error al guardar'], 500);
     }
   }
-  public function list(){
+  public function list() {
     $personas = Persona::all();
-    return response()->json([ "personas" =>$personas, 'status' => true ],200);
+    return response()->json(["personas" => $personas, 'status' => true], 200);
   }
 }

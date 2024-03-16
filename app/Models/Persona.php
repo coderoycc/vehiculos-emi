@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model {
   use HasFactory;
-  protected $fillable = ['nombre', 'ci', 'celular', 'cargo'];
+  protected $fillable = ['nombre', 'ci', 'usuario', 'password', 'celular', 'cargo'];
   public $timestamps = false;
   public function vehiculos() {
     return $this->hasMany(Vehiculo::class);

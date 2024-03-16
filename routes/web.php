@@ -8,28 +8,34 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehiculoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::get('/login', [AuthController::class, 'index'])->name('login');
+/*
+** RUTAS PANEL ADMINISTRADOR **
+*/
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/panel', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/panel/login', [AuthController::class, 'index'])->name('login');
 
-Route::get('/personal', [PersonaController::class, 'index']);
-Route::post('/personal/create', [PersonaController::class, 'create']);
-Route::get('/personal/list', [PersonaController::class, 'list']);
+Route::post('/panel/login', [AuthController::class, 'login'])->name('login');
+Route::post('/panel/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/panel/personal', [PersonaController::class, 'index']);
+Route::post('/panel/personal/create', [PersonaController::class, 'create']);
+Route::get('/panel/personal/list', [PersonaController::class, 'list']);
+
+Route::get('/panel/vehiculo', [VehiculoController::class, 'index']);
+Route::post('/panel/vehiculo/create', [VehiculoController::class, 'create']);
+Route::get('/panel/vehiculo/list', [VehiculoController::class, 'list']);
+
+Route::get('/panel/users', [UserController::class, 'index']);
+Route::post('/panel/users/create', [UserController::class, 'create']);
+Route::get('/panel/users/list', [UserController::class, 'list']);
+
+Route::get('/panel/page/{page}', [PageController::class, 'index']);
+Route::get('/panel/logados', [AuthController::class, 'logados'])->name('logados');
 
 
-
-Route::get('/vehiculo', [VehiculoController::class, 'index']);
-Route::post('/vehiculo/create', [VehiculoController::class, 'create']);
-Route::get('/vehiculo/list', [VehiculoController::class, 'list']);
-
-
-Route::get('/users', [UserController::class, 'index']);
-Route::post('/users/create', [UserController::class, 'create']);
-Route::get('/users/list', [UserController::class, 'list']);
-
-
-Route::get('/page/{page}', [PageController::class, 'index']);
-
-Route::get('/logados', [AuthController::class, 'logados'])->name('logados');
+/**
+ ** RUTAS PUBLICAS **
+ */
+// Route::get('/', [PageController::class, 'home']);
+Route::get('/', [PageController::class, 'index']);

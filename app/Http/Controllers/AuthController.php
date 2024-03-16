@@ -19,7 +19,7 @@ class AuthController extends Controller {
     $credentials = $request->only('usuario', 'password');
 
     if (Auth::attempt($credentials)) {
-      return redirect()->intended('/')->withSuccess('Login exitosos');
+      return redirect()->intended('/panel')->withSuccess('Login exitosos');
     }
     return redirect("login")->withErrors('Credenciales incorrectas');
   }

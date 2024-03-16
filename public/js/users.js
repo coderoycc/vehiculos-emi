@@ -8,7 +8,7 @@ $(document).on('submit', '#form_create', async (e) => {
   const data = $(e.target).serialize();
   try {
     const res = await $.ajax({
-      url: "/users/create",
+      url: "/panel/users/create",
       type: "POST",
       data,
       dataType: "json",
@@ -42,7 +42,7 @@ $(document).on('submit', '#form_create', async (e) => {
 
 async function listar() {
   const res = await $.ajax({
-    url: "/users/list",
+    url: "/panel/users/list",
     type: "GET",
     dataType: "json",
   });
@@ -62,8 +62,6 @@ function tablaHtml(data) {
       <td></td>
     </tr>`;
   });
-  if (html == '')
-    html = `<tr class="text-center"><td colspan="8">No existen registros</td></tr>`;
   $("#t_body_users").html(html);
   tabla = $("#table_users").DataTable({
     language: lenguaje,

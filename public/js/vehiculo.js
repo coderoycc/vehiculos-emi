@@ -18,7 +18,7 @@ $(document).on('submit', '#form_create', async (e) => {
   const data = $(e.target).serialize();
   try {
     const res = await $.ajax({
-      url: "/vehiculo/create",
+      url: "/panel/vehiculo/create",
       type: "POST",
       data,
       dataType: "json",
@@ -52,7 +52,7 @@ $(document).on('submit', '#form_create', async (e) => {
 
 async function listar() {
   const res = await $.ajax({
-    url: "/vehiculo/list",
+    url: "/panel/vehiculo/list",
     type: "GET",
     dataType: "json",
   });
@@ -62,7 +62,12 @@ async function listar() {
 }
 function tablaHtml(data) {
   let html = '';
+  let button_baja = '';
   data.forEach(v => {
+    console.log(v.habilitado == "SI")
+    button_baja = v.habilitado === "SI" ?
+      `<button type="button" data-si="${v.habilitado}" class="btn btn-danger"> DAR BAJA</button>` :
+      `<button type="button" class="btn btn-success" data-si="${v.habilitado}"> DAR ALTA</button>`;
     html += `<tr>
       <td>${v.id}</td>
       <td>${v.tipo}</td>
@@ -71,11 +76,16 @@ function tablaHtml(data) {
       <td>${v.modelo ?? 'S/M'}</td>
       <td>${v.persona.nombre}</td>
       <td>${v.creado_por.usuario}</td>
-      <td></td>
+      <td>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-primary"><i class="fa fa-solid fa-qrcode"></i></button>
+          <button type="button" class="btn btn-info"><i class="fa fa-solid fa-pencil"></i></button>
+          ${button_baja}
+        </div>
+      </td>
     </tr>`;
   });
-  if (html == '')
-    html = `<tr class="text-center"><td colspan="8">No existen registros</td></tr>`;
+
   $("#t_body_vehiculo").html(html);
   tabla = $("#table_vehiculo").DataTable({
     language: lenguaje,

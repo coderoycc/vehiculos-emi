@@ -17,7 +17,6 @@ class VehiculoController extends Controller {
     $vehiculo->usuario_id = $idUsuario;
     $vehiculo->persona_id = $request->idPersona;
     $vehiculo->detalle = $request->detalle;
-    $vehiculo->hash = hash('sha256', $request->placa);
     $vehiculo->anio = 0;
     if ($vehiculo->save()) {
       return response()->json(['status' => true, 'message' => 'Vehiculo agregado exitosamente'], 200);
@@ -38,11 +37,11 @@ class VehiculoController extends Controller {
         ->with(['persona'])
         ->first();
       if ($vehiculo == null)
-        return response()->json(['data' => null, 'status' => false, 'message' => 'Vehículo no encontrado']);
+        return response()->json(['data' => null, 'status' => false, 'message' => 'Vehículo no encontrado'], 400);
       else
-        return response()->json(['data' => $vehiculo, 'status' => true]);
+        return response()->json(['data' => $vehiculo, 'status' => true], 200);
     } catch (\Throwable $th) {
-      return response()->json(['data' => null, 'status' => false, 'message' => 'Error al obtener el vehículo.']);
+      return response()->json(['data' => null, 'status' => false, 'message' => 'Error al obtener el vehículo.'], 500);
     }
   }
 
