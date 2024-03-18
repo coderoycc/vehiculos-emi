@@ -38,4 +38,10 @@ Route::get('/panel/logados', [AuthController::class, 'logados'])->name('logados'
  ** RUTAS PUBLICAS **
  */
 // Route::get('/', [PageController::class, 'home']);
-Route::get('/', [PageController::class, 'index']);
+Route::get('/', [PageController::class, 'index'])->name('home_public')->middleware('auth_public');
+Route::get('/login', [PageController::class, 'login'])->name('login_public');
+Route::post('/login', [PersonaController::class, 'loginPublic'])->name('login_post');
+
+Route::post('/logout', [PersonaController::class, 'logout'])->name('logout_public')->middleware('auth_public');
+Route::get('/misvehiculos', [PageController::class, 'listaMisVehiculos'])->name('listavehiculos')->middleware('auth_public');
+Route::get('/generarqr', [PageController::class, 'generarqr'])->name('generarqr')->middleware('auth_public');

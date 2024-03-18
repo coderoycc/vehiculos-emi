@@ -7,61 +7,66 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>LOGIN</title>
   @include('partials/header_imports')
+
+  <style>
+    .btn-color {
+      background-color: #174287;
+      color: #fff;
+
+    }
+
+    .profile-image-pic {
+      height: 200px;
+      width: 200px;
+      object-fit: cover;
+    }
+
+    .rounded-shield {
+      border-radius: 0px 0px 50% 50%;
+    }
+
+    .cardbody-color {
+      background-color: #ebf2fa;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
 </head>
 
 <body>
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6 text-center mb-5">
-        <h2 class="heading-section">Login #05</h2>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-md-7 col-lg-5">
-        <div class="wrap">
-          <div class="img" style="background-image: url(images/bg-1.jpg);"></div>
-          <div class="login-wrap p-4 p-md-5">
-            <div class="d-flex">
-              <div class="w-100">
-                <h3 class="mb-4">Sign In</h3>
-              </div>
-              <div class="w-100">
-                <p class="social-media d-flex justify-content-end">
-                  <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span
-                      class="fa fa-facebook"></span></a>
-                  <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span
-                      class="fa fa-twitter"></span></a>
-                </p>
-              </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="text-center text-dark mt-4">Control de vehículos</h2>
+        <div class="card my-5">
+          <form action="{{ route('login_post') }}" method="POST" class="card-body cardbody-color p-lg-5">
+            @csrf
+            <div class="text-center">
+              <img src="{{ asset('images/logo_emi0.png') }}"
+                class="img-fluid profile-image-pic img-thumbnail rounded-shield my-3" width="200px" alt="profile">
             </div>
-            <form action="#" class="signin-form">
-              <div class="form-group mt-3">
-                <input type="text" class="form-control" required="">
-                <label class="form-control-placeholder" for="username">Username</label>
+            <div class="mb-3">
+              <input type="text" class="form-control" name="usuario" id="Username" aria-describedby="emailHelp"
+                placeholder="Usuario">
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+            </div>
+            <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-2 w-100">Ingresar</button>
+            </div>
+            @if ($errors->any())
+              <div class="alert alert-danger" role="alert">
+                Credenciales incorrectas
               </div>
-              <div class="form-group">
-                <input id="password-field" type="password" class="form-control" required="">
-                <label class="form-control-placeholder" for="password">Password</label>
-                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
-              </div>
-              <div class="form-group d-md-flex">
-                <div class="w-50 text-left">
-                  <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
-                    <input type="checkbox" checked="">
-                    <span class="checkmark"></span>
-                  </label>
-                </div>
-                <div class="w-50 text-md-right">
-                  <a href="#">Forgot Password</a>
-                </div>
-              </div>
-            </form>
-            <p class="text-center">Not a member? <a data-toggle="tab" href="#signup">Sign Up</a></p>
-          </div>
+            @endif
+            <div class="form-text text-center mb-4 text-muted">
+              Si no tiene una cuenta, comuníquese con el administrador.
+            </div>
+          </form>
         </div>
+
       </div>
     </div>
   </div>

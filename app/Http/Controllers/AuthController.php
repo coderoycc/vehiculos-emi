@@ -8,16 +8,13 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller {
   public function index() {
     if (Auth::check()) {
-      return redirect()->intended('/');
+      return redirect()->intended('/panel');
     }
     return view('auth.login');
   }
   public function login(Request $request) {
-    // var_dump($request->only('usuario', 'password'));
-    // return;
     $request->validate(['usuario' => 'required', 'password' => 'required']);
     $credentials = $request->only('usuario', 'password');
-
     if (Auth::attempt($credentials)) {
       return redirect()->intended('/panel')->withSuccess('Login exitosos');
     }

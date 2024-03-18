@@ -14,7 +14,7 @@ class Qrregistro extends Model {
   public $timestamps = false;
 
   public function propietario() {
-    return $this->belongsTo(Persona::class);
+    return $this->belongsTo(Persona::class, 'persona_id');
   }
   public function vehiculo() {
     return $this->belongsTo(Vehiculo::class);
