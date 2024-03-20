@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QrregistroController extends Controller {
   public function verificarqr($hash) {
@@ -26,27 +27,39 @@ class QrregistroController extends Controller {
       return response()->json(['data' => null, 'status' => false, 'message' => 'Error al obtener el vehículo.'], 500);
     }
   }
-  public function registrar(Request $request){
+  public function registrar(Request $request) {
     $qr = null;
-    if(isset($request->hash) && isset($request->id) && isset($request->idUsuario)){
+    if (isset($request->hash) && isset($request->id) && isset($request->idUsuario)) {
       $qr = \App\Models\Qrregistro::where('codigoQR', $request->hash)->where('id', $request->id)->first();
-    }else if(isset($request->hash) && isset($request->idUsuario)){
+    } else if (isset($request->hash) && isset($request->idUsuario)) {
       $qr = \App\Models\Qrregistro::where('codigoQR', $request->hash)->first();
-    }else if(isset($request->id) && $request->idUsuario){
+    } else if (isset($request->id) && $request->idUsuario) {
       $qr = \App\Models\Qrregistro::where('id', $request->id)->first();
-    }else{
+    } else {
       return response()->json(['data' => null, 'status' => false, 'message' => 'Parámetros faltantes'], 403);
     }
-    if($qr){
-      // var_dump($qr);
-      // die();
+    if ($qr) {
       $qr->usado = 1;
       $qr->fechaRegistro = date('Y-m-d H:i:s');
       $qr->usuario_id = $request->idUsuario;
-      if($qr->save()) return response()->json(['data' => $qr, 'status' => true, 'message' => 'Registrado con éxito'], 200);
+      if ($qr->save()) return response()->json(['data' => $qr, 'status' => true, 'message' => 'Registrado con éxito'], 200);
       else return response()->json(['data' => null, 'status' => false, 'message' => 'Ocurrió un error al registrar'], 500);
-    }else{
+    } else {
       return response()->json(['data' => null, 'status' => false, 'message' => 'Registro no encontrado'], 404);
+    }
+  }
+  public function create(Request $request) {
+    $qr = new \App\Models\Qrregistro();
+    $persona = json_decode(session()->get('persona'));
+    $qr->tipo = $request->tipo;
+    $qr->fechaVencimiento = date('Y-m-d H:i:s', strtotime('+30 min'));
+    $qr->persona_id = $persona->id;
+    $qr->vehiculo_id = intval($request->idVehiculo);
+    $qr->codigoQR = hash('sha256', $qr->fechaVencimiento . $qr->tipo . $qr->persona_id . $qr->vehiculo_id);
+    if ($qr->save()) {
+      return response()->json(['data' => $qr, 'status' => true, 'message' => 'QR creado con éxito'], 200);
+    } else {
+      return response()->json(['data' => null, 'status' => false, 'message' => 'Ocurrió un error al crear el QR'], 500);
     }
   }
 }

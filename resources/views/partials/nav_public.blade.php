@@ -2,6 +2,13 @@
   .nav-link.text-white.active {
     text-decoration: underline;
   }
+
+  @media (max-width: 990px) {
+    .btn.btn-danger.btn-custom::after {
+      font-weight: bold;
+      content: " SALIR ";
+    }
+  }
 </style>
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color:#174287;">
   <div class="container-fluid">
@@ -20,13 +27,14 @@
             vehículos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" data-page="generarqr" href="{{ route('generarqr') }}">Generar QR</a>
+          <a class="nav-link text-white" data-page="seguimiento" href="{{ route('seguimiento') }}">Seguimiento</a>
         </li>
       </ul>
       <div>
         <form method="POST" action="{{ route('logout_public') }}">
           @csrf
-          <button class="btn btn-danger" type="submit"><i class="fa fa-sign-out"></i></button>
+          <button class="btn btn-danger btn-custom" type="submit" title="SALIR"><i
+              class="fa fa-sign-out"></i></button>
         </form>
       </div>
     </div>

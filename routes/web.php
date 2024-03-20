@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\QrregistroController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehiculoController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,5 @@ Route::post('/login', [PersonaController::class, 'loginPublic'])->name('login_po
 
 Route::post('/logout', [PersonaController::class, 'logout'])->name('logout_public')->middleware('auth_public');
 Route::get('/misvehiculos', [PageController::class, 'listaMisVehiculos'])->name('listavehiculos')->middleware('auth_public');
-Route::get('/generarqr', [PageController::class, 'generarqr'])->name('generarqr')->middleware('auth_public');
+Route::get('/seguimiento', [PageController::class, 'seguimiento'])->name('seguimiento')->middleware('auth_public');
+Route::post('/qrregistro/create', [QrregistroController::class, 'create']);

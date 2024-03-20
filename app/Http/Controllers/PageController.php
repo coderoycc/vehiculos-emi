@@ -22,7 +22,7 @@ class PageController extends Controller { // pagina publica
     $vehiculos = Vehiculo::where('persona_id', $persona->id)->get();
     return view('pages.misvehiculos', ['persona' => $persona, 'vehiculos' => $vehiculos]);
   }
-  public function generarqr() {
-    return view('pages.generarqr');
+  public function seguimiento() {
+    return view('pages.seguimiento');
   }
 }

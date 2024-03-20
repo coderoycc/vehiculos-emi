@@ -61,7 +61,7 @@
       cursor: pointer;
     }
 
-    .btn {
+    .btn.btn-custom {
       background: #EEECF7;
       border: 0;
       color: #174287;
@@ -72,17 +72,39 @@
       transition: all 0.2s ease;
     }
 
-    .btn.btn-danger:hover {
+    .btn.btn-custom.btn-danger:hover {
       background: var(--bs-danger)
     }
 
-    .btn:hover {
+    .btn.btn-custom:hover {
       background: #174287;
+      color: #EEECF7;
     }
 
-    .btn:focus {
+    .btn.btn-custom:focus {
       background: #174287;
       outline: 0;
+    }
+
+    fieldset {
+      display: flex;
+      justify-content: center;
+      min-width: 0 !important;
+      padding: 10px !important;
+      margin: 0 !important;
+      border: 1px solid #e0e0e0;
+    }
+
+    /* Estilos para legend */
+    legend {
+      display: block !important;
+      float: none;
+      width: auto !important;
+      padding: 0 !important;
+      margin-bottom: 0.5rem !important;
+      font-size: inherit !important;
+      line-height: inherit !important;
+      color: inherit !important;
     }
   </style>
 </head>
@@ -101,14 +123,23 @@
               <h5 class="card-title ms-1 text-center">{{ $vehiculo->placa }}</h5>
               <p class="card-text ms-1"><b>Tipo:</b> {{ $vehiculo->tipo }}</p>
               <p class="card-text mb-3 ms-1"><b>Color:</b> {{ $vehiculo->color }}</p>
-              <a href="" target="_blank" class="btn btn-primary mb-1 mt-1 ">Generar QR</a>
-              <a href="" target="_blank" class="btn btn-primary mb-1 mt-1 ">Generar QR</a>
+              <button target="_blank" type="button" data-bs-toggle="modal" data-bs-target="#modal_generar_qr"
+                data-id="{{ $vehiculo->id }}" data-placa="{{ $vehiculo->placa }}"
+                class="btn btn-primary mb-1 mt-1 w-100 rounded-pill fw-bold"
+                style="background:#174287;border:#174287;">Generar
+                QR</button>
+              {{-- <button type="button" target="_blank" class="btn btn-secondary btn-custom mb-1 mt-1 ">Listado</button> --}}
             </div>
           </div>
         </div>
       @endforeach
     </div>
   </div>
+
+  @include('pages.modals')
+  <script src="{{ asset('js/misvehiculos.js') }}"></script>
+
+  <div id="toast-container"></div>
 </body>
 
 </html>

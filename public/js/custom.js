@@ -1,7 +1,5 @@
 $(document).ready(async function () {
-  setTimeout(function () {
-    test();
-  });
+
 });
 
 async function getPage(page) {
@@ -16,14 +14,6 @@ async function getPage(page) {
     console.log(error)
   }
 }
-
-$(".navbar-toggler").click(function () {
-  // $(".navbar-collapse").slideToggle(300);
-
-  // setTimeout(function () {
-  //   test();
-  // });
-});
 
 // --------------add active class-on another-page move----------
 jQuery(document).ready(function ($) {

@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Personal</title>
+  <title>Seguimiento</title>
   @include('partials.header_imports')
   <style>
-    .btn {
+    .btn.btn-custom {
       background: #EEECF7;
       border: 0;
       color: #174287;
@@ -19,8 +19,9 @@
       transition: all 0.2s ease;
     }
 
-    .btn.btn-danger:hover {
-      background: var(--bs-danger)
+    .btn.btn-custom.btn-danger:hover {
+      background: var(--bs-danger);
+      color: #EEECF7;
     }
   </style>
 </head>
