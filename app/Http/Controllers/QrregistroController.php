@@ -26,4 +26,27 @@ class QrregistroController extends Controller {
       return response()->json(['data' => null, 'status' => false, 'message' => 'Error al obtener el vehículo.'], 500);
     }
   }
+  public function registrar(Request $request){
+    $qr = null;
+    if(isset($request->hash) && isset($request->id) && isset($request->idUsuario)){
+      $qr = \App\Models\Qrregistro::where('codigoQR', $request->hash)->where('id', $request->id)->first();
+    }else if(isset($request->hash) && isset($request->idUsuario)){
+      $qr = \App\Models\Qrregistro::where('codigoQR', $request->hash)->first();
+    }else if(isset($request->id) && $request->idUsuario){
+      $qr = \App\Models\Qrregistro::where('id', $request->id)->first();
+    }else{
+      return response()->json(['data' => null, 'status' => false, 'message' => 'Parámetros faltantes'], 403);
+    }
+    if($qr){
+      // var_dump($qr);
+      // die();
+      $qr->usado = 1;
+      $qr->fechaRegistro = date('Y-m-d H:i:s');
+      $qr->usuario_id = $request->idUsuario;
+      if($qr->save()) return response()->json(['data' => $qr, 'status' => true, 'message' => 'Registrado con éxito'], 200);
+      else return response()->json(['data' => null, 'status' => false, 'message' => 'Ocurrió un error al registrar'], 500);
+    }else{
+      return response()->json(['data' => null, 'status' => false, 'message' => 'Registro no encontrado'], 404);
+    }
+  }
 }

@@ -15,3 +15,4 @@ Route::post('/user/login', [UserController::class, 'loginApi']);
 // Route::post('/registro/create', [RegistroController::class, 'create']);
 Route::get('/qr/{hash}', [QrregistroController::class, 'verificarqr']);
 // Route::post('/qrregister/register', []);
+Route::post('/qr/register', [QrregistroController::class, 'registrar']);
