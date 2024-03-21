@@ -31,9 +31,9 @@
         </li>
       </ul>
       <div>
-        <form method="POST" action="{{ route('logout_public') }}">
+        <form id="form_logout" method="POST" action="{{ route('logout_public') }}">
           @csrf
-          <button class="btn btn-danger btn-custom" type="submit" title="SALIR"><i
+          <button class="btn btn-danger btn-custom" type="submit" title="SALIR" id="form_logout_btn"><i
               class="fa fa-sign-out"></i></button>
         </form>
       </div>
@@ -50,4 +50,7 @@
     var target = $(`a[data-page="${path}"]`);
     target.addClass("active");
   });
+  $(document).on('submit', '#form_logout', () => {
+    $('#form_logout_btn').attr('disabled', true)
+  })
 </script>

@@ -69,15 +69,15 @@ class QrregistroController extends Controller {
     try {
       $qr = \App\Models\Qrregistro::where('id', $id)->first();
       if ($qr) {
-        $renderer = new ImageRenderer(new RendererStyle(400,3),new SvgImageBackEnd());
+        $renderer = new ImageRenderer(new RendererStyle(400, 3), new SvgImageBackEnd());
         $writer = new Writer($renderer);
         $cad = $writer->writeString($qr->codigoQR, 'utf-8');
-        return response()->json(['status' => true, 'message' => 'Codigo QR generado', 'data' => $cad], 200);
+        return response()->json(['status' => true, 'message' => 'Codigo QR generado', 'svg' => $cad, 'data' => $qr], 200);
       } else {
         return response()->json(['status' => false, 'message' => 'Registro no encontrado', 'data' => null], 404);
       }
     } catch (\Exception $e) {
-      return response()->json(['status' => false, 'message'=>$e->getMessage()], 500);
+      return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
     }
   }
 }

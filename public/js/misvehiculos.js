@@ -15,23 +15,23 @@ async function sendForm(e) {
     data,
     dataType: 'json',
   });
-  if(res.status){
+  if (res.status) {
     const resqr = await $.ajax({
       url: `/api/qr/getqr/${res.data.id}`,
       type: 'GET',
       dataType: 'JSON'
     });
-    const svgData = resqr.data.replace('<?xml version="1.0" encoding="UTF-8"?>','')
+    const svgData = resqr.svg.replace('<?xml version="1.0" encoding="UTF-8"?>', '')
     console.log(svgData)
-    if(resqr.status){
+    if (resqr.status) {
       $("#qr_ver").html(svgData);
       $("#modal_ver_qr").modal('show')
     }
   }
 }
 
-async function descargarQr(){
+async function descargarQr() {
   const data = document.querySelector('#qr_ver>svg')
-  const res = await saveSvgAsPng(data, "diagram.png", {scale: 0.5});
+  const res = await saveSvgAsPng(data, "qrcode.png", { scale: 1.1 });
   console.log(res)
 }

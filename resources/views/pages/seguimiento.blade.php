@@ -28,7 +28,34 @@
 
 <body>
   @include('partials.nav_public')
-
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>PLACA</th>
+            <th>GENERADO</th>
+            <th>VIGENCIA</th>
+            <th>ESTADO</th>
+            <th>VER QR</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($registros as $registro)
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 
 </html>
