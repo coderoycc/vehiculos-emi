@@ -16,3 +16,4 @@ Route::post('/user/login', [UserController::class, 'loginApi']);
 Route::get('/qr/{hash}', [QrregistroController::class, 'verificarqr']);
 // Route::post('/qrregister/register', []);
 Route::post('/qr/register', [QrregistroController::class, 'registrar']);
+Route::get('/qr/getqr/{id}', [QrregistroController::class, 'generarqr']);

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Writer;
 
 class QrregistroController extends Controller {
   public function verificarqr($hash) {
@@ -60,6 +63,21 @@ class QrregistroController extends Controller {
       return response()->json(['data' => $qr, 'status' => true, 'message' => 'QR creado con éxito'], 200);
     } else {
       return response()->json(['data' => null, 'status' => false, 'message' => 'Ocurrió un error al crear el QR'], 500);
+    }
+  }
+  public function generarqr($id) {
+    try {
+      $qr = \App\Models\Qrregistro::where('id', $id)->first();
+      if ($qr) {
+        $renderer = new ImageRenderer(new RendererStyle(400,3),new SvgImageBackEnd());
+        $writer = new Writer($renderer);
+        $cad = $writer->writeString($qr->codigoQR, 'utf-8');
+        return response()->json(['status' => true, 'message' => 'Codigo QR generado', 'data' => $cad], 200);
+      } else {
+        return response()->json(['status' => false, 'message' => 'Registro no encontrado', 'data' => null], 404);
+      }
+    } catch (\Exception $e) {
+      return response()->json(['status' => false, 'message'=>$e->getMessage()], 500);
     }
   }
 }

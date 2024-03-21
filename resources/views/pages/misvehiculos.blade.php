@@ -137,9 +137,8 @@
   </div>
 
   @include('pages.modals')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/save-svg-as-png/1.4.17/saveSvgAsPng.min.js" integrity="sha512-vLkvtzbaBvXHQpdTtDT8Gg+vNqXGQ0+vgzoAFzuR6rbQQg+ECaFcjXpTT4EBA46EKACh49lJsBoarn3yYg0S4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="{{ asset('js/misvehiculos.js') }}"></script>
-
-  <div id="toast-container"></div>
 </body>
 
 </html>
