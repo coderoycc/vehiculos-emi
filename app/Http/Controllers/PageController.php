@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Qrregistro;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,8 @@ class PageController extends Controller { // pagina publica
     return view('pages.misvehiculos', ['persona' => $persona, 'vehiculos' => $vehiculos]);
   }
   public function seguimiento() {
-    return view('pages.seguimiento');
+    $persona = json_decode(session()->get('persona'));
+    $registros = Qrregistro::where('persona_id', $persona->id)->with('vehiculo')->orderByDesc('id')->get();
+    return view('pages.seguimiento', ['registros' => $registros]);
   }
 }
