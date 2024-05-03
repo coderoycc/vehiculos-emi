@@ -18,7 +18,7 @@ class AuthController extends Controller {
     if (Auth::attempt($credentials)) {
       return redirect()->intended('/panel')->withSuccess('Login exitosos');
     }
-    return redirect("login")->withErrors('Credenciales incorrectas');
+    return redirect("/panel/login")->withErrors('Credenciales incorrectas');
   }
 
   public function loggedin() {

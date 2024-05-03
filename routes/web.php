@@ -22,14 +22,24 @@ Route::post('/panel/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/panel/personal', [PersonaController::class, 'index']);
 Route::post('/panel/personal/create', [PersonaController::class, 'create']);
 Route::get('/panel/personal/list', [PersonaController::class, 'list']);
+Route::post('/panel/personal/delete', [PersonaController::class, 'delete']);
+Route::post('/panel/personal/update', [PersonaController::class, 'update']);
+Route::get('/panel/personal/getdatamodal/{id}', [PersonaController::class, 'edit_modal']);
+Route::get('/panel/personal/cars_user_modal/{id}', [PersonaController::class, 'cars_user']);
 
 Route::get('/panel/vehiculo', [VehiculoController::class, 'index']);
 Route::post('/panel/vehiculo/create', [VehiculoController::class, 'create']);
 Route::get('/panel/vehiculo/list', [VehiculoController::class, 'list']);
+Route::get('/panel/vehiculo/getdatamodal/{id}', [VehiculoController::class, 'edit_modal']);
+Route::post('/panel/vehiculo/update', [VehiculoController::class, 'update']);
+Route::post('/panel/vehiculo/baja_alta', [VehiculoController::class, 'baja_alta']);
 
 Route::get('/panel/users', [UserController::class, 'index']);
 Route::post('/panel/users/create', [UserController::class, 'create']);
 Route::get('/panel/users/list', [UserController::class, 'list']);
+Route::post('/panel/users/delete', [UserController::class, 'delete']);
+Route::get('/panel/users/getdatamodal/{id}', [UserController::class, 'edit_content']);
+Route::post('/panel/users/update', [UserController::class, 'update']);
 
 Route::get('/panel/page/{page}', [PageController::class, 'index']);
 Route::get('/panel/logados', [AuthController::class, 'logados'])->name('logados');

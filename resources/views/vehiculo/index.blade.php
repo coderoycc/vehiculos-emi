@@ -8,6 +8,7 @@
   <title>Vehículos</title>
   @include('partials.header_imports')
   <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.bootstrap5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/jquery/jqueryToast.min.css') }}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"
     integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -114,7 +115,45 @@
       </div>
     </div>
   </div>
+
+  {{-- Modal Editar Vehiculo --}}
+  <div class="modal fade" id="edit_vehiculo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Editar vehículo</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modal_edit_vehiculo_data"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="editSave()">Guardar
+            cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{-- MODAL Dar BAJA ALTA --}}
+  <div class="modal fade" id="modal_baja_alta" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" id="header_modal_baja_alta">
+          <h1 class="modal-title fs-5 text-center"></h1>
+          <input type="hidden" id="baja_alta_id" value="">
+          <input type="hidden" id="baja_alta_val" value="">
+          @csrf
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="baja_alta()">
+            Sí, continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="{{ asset('assets/datatables/datatables.jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/jquery/jqueryToast.min.js') }}"></script>
   <script src="{{ asset('assets/datatables/datatables.bootstrap5.min.js') }}"></script>
   <script src="{{ asset('js/vehiculo.js') }}"></script>
 </body>

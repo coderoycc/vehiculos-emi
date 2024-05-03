@@ -39,4 +39,33 @@ class UserController extends Controller {
   public function index() {
     return view('user.index');
   }
+  public function delete(Request $req) {
+    $user = User::find($req->user_id);
+    if ($user) {
+      if ($user->delete()) {
+        return response()->json(['status' => true, 'message' => 'Usuario eliminado con exito'], 200);
+      } else {
+        return response()->json(['status' => false, 'message' => 'Error al eliminar usuario'], 500);
+      }
+    } else {
+      return response()->json(['status' => false, 'message' => 'Usuario no encontrado'], 200);
+    }
+  }
+  public function edit_content($id) {
+    $user = User::find($id);
+    $view = view('user.edit_content', compact('user'))->render();
+    return response()->json(['html' => $view, 'status' => true]);
+  }
+  public function update(Request $request) {
+    $user = User::find($request->user_id);
+    $user->nombre = $request->nombre;
+    $user->usuario = $request->usuario;
+    $user->rol = $request->rol;
+    $user->ci = $request->ci;
+    if ($user->save()) {
+      return response()->json(['status' => true, 'message' => 'Usuario actualizado con exito'], 200);
+    } else {
+      return response()->json(['status' => false, 'message' => 'Error al actualizar usuario'], 500);
+    }
+  }
 }

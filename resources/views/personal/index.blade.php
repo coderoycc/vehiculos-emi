@@ -9,6 +9,7 @@
   @include('partials.header_imports')
   <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('assets/datatables/datatables.bootstrap5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/jquery/jqueryToast.min.css') }}">
   <script src="{{ asset('js/custom.js') }}"></script>
 </head>
 
@@ -80,12 +81,71 @@
             Guardar</button>
         </form>
       </div>
-      <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-        ...</div>
     </div>
   </div>
-  <script src="{{asset('assets/datatables/datatables.jquery.min.js')}}"></script>
-  <script src="{{asset('assets/datatables/datatables.bootstrap5.min.js')}}"></script>
+
+  {{-- Modal  vehiculos del usuario --}}
+  <div class="modal fade" id="modal_cars_user" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Vehículos del usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modal_cars_user_content"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Modal  editar usuario --}}
+  <div class="modal fade" id="modal_edit_user" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h1 class="modal-title fs-5">Editar usuario</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modal_edit_user_content"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+            onclick="saveEdit()">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Modal delete user --}}
+  <div class="modal fade" id="modal_delete_user" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h1 class="modal-title fs-5">¿Eliminar al usuario?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger">
+            También <b>se eliminaran los vehículos</b> asociados a este usuario
+          </div>
+          <form id="delete_user_form" onsubmit="return false;">
+            @csrf
+            <input type="hidden" name="user_id" id="user_id_delete" value="">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteUser()">Sí,
+            eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{{ asset('assets/datatables/datatables.jquery.min.js') }}"></script>
+  <script src="{{ asset('assets/datatables/datatables.bootstrap5.min.js') }}"></script>
+  <script src="{{ asset('assets/jquery/jqueryToast.min.js') }}"></script>
   <script src="{{ asset('js/personal.js') }}"></script>
 </body>
 

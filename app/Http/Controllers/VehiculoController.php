@@ -49,4 +49,31 @@ class VehiculoController extends Controller {
     $personal = \App\Models\Persona::all();
     return view('vehiculo.index', ['personal' => $personal]);
   }
+  public function edit_modal($id) {
+    $vehiculo = \App\Models\Vehiculo::find($id);
+    $vehiculo->persona = \App\Models\Persona::find($vehiculo->persona_id);
+    $view = view('vehiculo.edit_content', ['vehiculo' => $vehiculo])->render();
+    return response()->json(['data' => $view, 'status' => true]);
+  }
+  public function update(Request $data) {
+    $vehiculo = \App\Models\Vehiculo::find($data->vehiculo_id);
+    $vehiculo->placa = $data->placa;
+    $vehiculo->color = $data->color;
+    $vehiculo->tipo = $data->tipo;
+    $vehiculo->detalle = $data->detalle;
+    if ($vehiculo->save()) {
+      return response()->json(['status' => true, 'message' => 'Vehiculo actualizado exitosamente'], 200);
+    } else {
+      return response()->json(['status' => false, 'message' => 'Error al actualizar el vehiculo'], 500);
+    }
+  }
+  public function baja_alta(Request $data) {
+    $vehiculo = \App\Models\Vehiculo::find($data->id);
+    $vehiculo->habilitado = $data->value == "SI" ? "NO" : "SI";
+    if ($vehiculo->save()) {
+      return response()->json(['status' => true, 'message' => 'Vehiculo actualizado exitosamente'], 200);
+    } else {
+      return response()->json(['status' => false, 'message' => 'Error al actualizar el vehiculo'], 500);
+    }
+  }
 }

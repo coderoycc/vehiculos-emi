@@ -64,9 +64,9 @@ function tablaHtml(data) {
     <td>${element.celular}</td>
     <td class="text-center">
       <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-info"><i class="fa fa-solid fa-car"></i></button>
-        <button type="button" class="btn btn-primary"><i class="fa fa-solid fa-pencil"></i></button>
-        <button type="button" class="btn btn-danger"><i class="fa fa-soli fa-trash"></i></button>
+        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal_cars_user" data-iduser="${element.id}"><i class="fa fa-solid fa-car"></i></button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_edit_user" data-iduser="${element.id}"><i class="fa fa-solid fa-pencil"></i></button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_delete_user" data-iduser="${element.id}"><i class="fa fa-soli fa-trash"></i></button>
       </div>
     </td>
     </tr>`;
@@ -80,4 +80,69 @@ function tablaHtml(data) {
       { orderable: false, targets: [2, 4] }
     ],
   });
+}
+
+$(document).on("show.bs.modal", "#modal_edit_user", modal_edit_open);
+$(document).on("show.bs.modal", "#modal_delete_user", modal_delete_open);
+$(document).on('show.bs.modal', "#modal_cars_user", modal_cars_open);
+function modal_delete_open(e) {
+  const id = $(e.relatedTarget).data("iduser");
+  $("#user_id_delete").val(id);
+}
+async function modal_edit_open(e) {
+  const id = $(e.relatedTarget).data("iduser");
+  const res = await $.ajax({
+    url: "/panel/personal/getdatamodal/" + id,
+    type: "GET",
+    dataType: "json",
+  });
+  if (res.status) {
+    $("#modal_edit_user_content").html(res.html)
+  }
+}
+async function modal_cars_open(e) {
+  const id = $(e.relatedTarget).data("iduser");
+  const res = await $.ajax({
+    url: "/panel/personal/cars_user_modal/" + id,
+    type: "GET",
+    data: { id },
+    dataType: "json",
+  });
+  if (res.status) {
+    $("#modal_cars_user_content").html(res.html)
+  }
+}
+async function deleteUser() {
+  const data = $("#delete_user_form").serialize();
+  const res = await $.ajax({
+    url: "/panel/personal/delete",
+    type: "POST",
+    data,
+    dataType: "json",
+  });
+  if (res.status) {
+    toast('Eliminado', 'Usuario eliminado', 'success', 2020);
+    setTimeout(() => {
+      location.reload();
+    }, 2000);
+  } else {
+    toast('Error', res.message, 'error', 2020);
+  }
+}
+async function saveEdit() {
+  const data = $("#form_update").serialize();
+  const res = await $.ajax({
+    url: "/panel/personal/update",
+    type: "POST",
+    data,
+    dataType: "json",
+  });
+  if (res.status) {
+    toast('Actualizado', 'Usuario actualizado', 'success', 2020);
+    setTimeout(() => {
+      location.reload();
+    }, 2000);
+  } else {
+    toast('Error', res.message, 'error', 2020);
+  }
 }

@@ -1,6 +1,4 @@
-$(document).ready(async function () {
-
-});
+$(document).ready(async function () { });
 
 async function getPage(page) {
   try {
@@ -55,3 +53,14 @@ const lenguaje = {
   infoEmpty: "No hay resultados",
   zeroRecords: "No hay registros...",
 };
+
+function toast(title, text, icon, time = 1600) {
+  $.toast({
+    heading: title,
+    icon,
+    text,
+    showHideTransition: 'slide',
+    position: 'top-right',
+    hideAfter: time
+  })
+}
