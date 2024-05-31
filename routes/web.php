@@ -33,6 +33,9 @@ Route::get('/panel/vehiculo/list', [VehiculoController::class, 'list']);
 Route::get('/panel/vehiculo/getdatamodal/{id}', [VehiculoController::class, 'edit_modal']);
 Route::post('/panel/vehiculo/update', [VehiculoController::class, 'update']);
 Route::post('/panel/vehiculo/baja_alta', [VehiculoController::class, 'baja_alta']);
+Route::get('/panel/reports', [VehiculoController::class, 'reports']);
+Route::get('/panel/reports/day', [VehiculoController::class, 'report_day']);
+Route::get('/panel/reports/all', [VehiculoController::class, 'report_all']);
 
 Route::get('/panel/users', [UserController::class, 'index']);
 Route::post('/panel/users/create', [UserController::class, 'create']);

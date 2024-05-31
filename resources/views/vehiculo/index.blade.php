@@ -104,9 +104,29 @@
                 <label for="detalle">Detalle (opcional)</label>
               </div>
             </div>
-            <div class="col-md-4 d-flex justify-content-center">
+            {{-- <div class="col-md-4 d-flex justify-content-center">
               <button class="btn btn-info" type="button" title="Agregar imagenes"><i
-                  class="fa fa-solid fa-image"></i></button>
+                  class="fa fa-solid fa-image"></i></button> </div> --}}
+          </div>
+          <div class="fs-4">Documentos</div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="formFile" class="form-label">SOAT</label>
+                <input class="form-control" type="file" id="file_soat">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Licencia</label>
+                <input class="form-control" type="file" id="file_ci">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Documentación</label>
+                <input class="form-control" type="file" id="file_doc">
+              </div>
             </div>
           </div>
           <button class="btn btn-success float-end mt-2" type="submit"><i class="fa fa-solid fa-floppy-disk"></i>

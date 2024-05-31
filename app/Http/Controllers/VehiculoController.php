@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Qrregistro;
+use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -75,5 +77,19 @@ class VehiculoController extends Controller {
     } else {
       return response()->json(['status' => false, 'message' => 'Error al actualizar el vehiculo'], 500);
     }
+  }
+  public function reports(Request $data) {
+    return view('vehiculo.reports', []);
+  }
+  public function report_day(Request $data) {
+    $fecha = date('Y-m-d');
+    $vehiculosIn = Qrregistro::where('usado', 1)->where('tipo', 'INGRESO')->whereDate('fechaGenerado', $fecha)->with('propietario')->with('vehiculo')->get();
+    $vehiculosOut = Qrregistro::where('usado', 1)->where('tipo', 'SALIDA')->whereDate('fechaGenerado', $fecha)->with('propietario')->with('vehiculo')->get();
+    return view('reports.vehiculos', ['vehiculosIn' => $vehiculosIn, 'vehiculosOut' => $vehiculosOut]);
+  }
+  public function report_all(Request $data) {
+    $vehiculosIn = Qrregistro::where('usado', 1)->where('tipo', 'INGRESO')->with('propietario')->with('vehiculo')->get();
+    $vehiculosOut = Qrregistro::where('usado', 1)->where('tipo', 'SALIDA')->with('propietario')->with('vehiculo')->get();
+    return view('reports.vehiculos2', ['vehiculosIn' => $vehiculosIn, 'vehiculosOut' => $vehiculosOut]);
   }
 }

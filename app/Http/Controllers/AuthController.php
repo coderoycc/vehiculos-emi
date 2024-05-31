@@ -29,6 +29,6 @@ class AuthController extends Controller {
   }
   public function logout(Request $request) {
     Auth::logout();
-    return redirect("login")->withSuccess('Logout exitoso');
+    return redirect("/panel/login")->withSuccess('Logout exitoso');
   }
 }

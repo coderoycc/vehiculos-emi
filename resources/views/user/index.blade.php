@@ -69,8 +69,9 @@
               <div class="form-floating mb-2">
                 <select class="form-select" name="rol" required>
                   <option value="">-- Seleccione --</option>
-                  <option value="ADMIN">ADMIN</option>
+                  <option value="ADMIN">ADMINISTRADOR</option>
                   <option value="GUARDIA">GUARDIA</option>
+                  <option value="OPERADOR">OPERADOR</option>
                 </select>
                 <label for="tipo">Rol</label>
               </div>

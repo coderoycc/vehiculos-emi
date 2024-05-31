@@ -13,11 +13,16 @@
       <li class="nav-item" data-page="vehiculos">
         <a class="nav-link" href="/panel/vehiculo"><i class="fa fa-solid fa-car"></i> Vehículos</a>
       </li>
-      <li class="nav-item" data-page="administrador">
-        <a class="nav-link" href="/panel/users"><i class="fa fa-solid fa-user-shield"></i> Administradores</a>
-      </li>
+      @can('isAdmin')
+        <li class="nav-item" data-page="administrador">
+          <a class="nav-link" href="/panel/users"><i class="fa fa-solid fa-user-shield"></i> Administradores</a>
+        </li>
+      @endcan
       <li class="nav-item" data-page="personal">
         <a class="nav-link" href="/panel/personal"><i class="fa fa-solid fa-user"></i> Personal</a>
+      </li>
+      <li class="nav-item" data-page="reports">
+        <a class="nav-link" href="/panel/reports"><i class="fa-solid fa-chart-line"></i> Reportes</a>
       </li>
       <li class="nav-item">
         <form method="POST" action="{{ route('logout') }}">
