@@ -2,13 +2,15 @@ var tabla = null;
 $(document).ready(() => { });
 
 $(document).ready(async function () {
-  await listar();
+  $("#table_personal").DataTable({
+    language: lenguaje,
+    info: false,
+    scrollX: true,
+    columnDefs: [
+      { orderable: false, targets: [4, 5] }
+    ],
+  });
 });
-
-// $(document).on("click", "#lista-user-tab", async () => {
-//   tabla = null
-//   await listar();
-// });
 
 $(document).on("submit", "#form_create", async (e) => {
   e.preventDefault();
@@ -42,45 +44,19 @@ $(document).on("submit", "#form_create", async (e) => {
   }
 });
 
-async function listar() {
-  const res = await $.ajax({
-    url: "/panel/personal/list",
-    type: "GET",
-    dataType: "json",
-  });
-  console.log(res);
-  if (res.status) {
-    tablaHtml(res.personas);
-  }
-}
+// async function listar() {
+//   const res = await $.ajax({
+//     url: "/panel/personal/list",
+//     type: "GET",
+//     dataType: "json",
+//   });
+//   console.log(res);
+//   if (res.status) {
+//     tablaHtml(res.personas);
+//   }
+// }
 
-function tablaHtml(data) {
-  let html = "";
-  data.forEach((element) => {
-    html += `<tr>
-    <td>${element.id}</td>
-    <td>${element.nombre}</td>
-    <td>${element.ci}</td>
-    <td>${element.celular}</td>
-    <td class="text-center">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal_cars_user" data-iduser="${element.id}"><i class="fa fa-solid fa-car"></i></button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_edit_user" data-iduser="${element.id}"><i class="fa fa-solid fa-pencil"></i></button>
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_delete_user" data-iduser="${element.id}"><i class="fa fa-soli fa-trash"></i></button>
-      </div>
-    </td>
-    </tr>`;
-  });
-  $("#t_body_personal").html(html);
-  tabla = $("#table_personal").DataTable({
-    language: lenguaje,
-    info: false,
-    scrollX: true,
-    columnDefs: [
-      { orderable: false, targets: [2, 4] }
-    ],
-  });
-}
+
 
 $(document).on("show.bs.modal", "#modal_edit_user", modal_edit_open);
 $(document).on("show.bs.modal", "#modal_delete_user", modal_delete_open);

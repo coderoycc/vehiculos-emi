@@ -42,9 +42,35 @@
               <th class="text-center">NOMBRE</th>
               <th class="text-center">C.I.</th>
               <th class="text-center">CELULAR</th>
+              <th class="text-center">VER VEHÍCULOS</th>
               <th class="text-center">OPCIONES</th>
           </thead>
-          <tbody id="t_body_personal"></tbody>
+          <tbody>
+            @foreach ($personas as $persona)
+              <tr>
+                <td class="text-center">{{ $persona->id }}</td>
+                <td class="text-center">{{ $persona->nombre }}</td>
+                <td class="text-center">{{ $persona->ci }}</td>
+                <td class="text-center">{{ $persona->celular }}</td>
+                <td class="text-center">
+                  <a href="/panel/personal/vehiculo?id={{ $persona->id }}" class="btn btn-info"><i
+                      class="fa-lg fa-solid fa-car-side"></i></a>
+                </td>
+                <td class="text-center">
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    {{-- <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modal_cars_user"
+                      data-iduser="{{ $persona->id }}"><i class="fa fa-solid fa-car"></i></button> --}}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                      data-bs-target="#modal_edit_user" data-iduser="{{ $persona->id }}"><i
+                        class="fa fa-solid fa-pencil"></i></button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                      data-bs-target="#modal_delete_user" data-iduser="{{ $persona->id }}"><i
+                        class="fa fa-soli fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
         </table>
       </div>
       <div class="tab-pane fade" id="user-new" role="tabpanel" aria-labelledby="user-new-tab" tabindex="0">
@@ -143,6 +169,18 @@
       </div>
     </div>
   </div>
+  @if (session('success_create'))
+    <script>
+      $.toast({
+        heading: 'Proceso exitoso',
+        icon: 'success',
+        text: 'Vehículo guardado con exito',
+        showHideTransition: 'slide',
+        position: 'top-right',
+        hideAfter: 2300
+      })
+    </script>
+  @endif
   <script src="{{ asset('assets/datatables/datatables.jquery.min.js') }}"></script>
   <script src="{{ asset('assets/datatables/datatables.bootstrap5.min.js') }}"></script>
   <script src="{{ asset('assets/jquery/jqueryToast.min.js') }}"></script>

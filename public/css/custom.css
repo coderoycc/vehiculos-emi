@@ -16,11 +16,12 @@ i {
 /*----------bootstrap-navbar-css------------*/
 .navbar-logo {
   padding: 15px;
-  color: #fff;
+  color: #174287;
+  font-weight: bold;
 }
 
 .navbar-mainbg {
-  background-color: #5161ce;
+  background-color: #fdd000;
   padding: 0px;
 }
 
@@ -48,7 +49,7 @@ i {
 }
 
 #navbarSupportedContent ul li a {
-  color: rgba(255, 255, 255, 0.5);
+  color: #174287;
   text-decoration: none;
   font-size: 15px;
   display: block;
@@ -74,12 +75,12 @@ i {
 }
 
 #navbarSupportedContent>ul>li.active {
-  background-color: #fff;
+  background-color: #174287;
   border-radius: 20px 20px 0px 0px;
 }
 
 #navbarSupportedContent>ul>li.active>a {
-  color: #5161ce !important;
+  color: #fdd000 !important;
   background-color: transparent;
   transition: all 0.7s;
 }

@@ -9,10 +9,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class PersonaController extends Controller {
-  public function index() {
-    return view('personal.index');
+  public function index(Request $request) {
+    // echo $request->query('filtro');
+    $personas = Persona::all();
+    return view('personal.index', ['personas' => $personas]);
   }
-
+  public function vehiculo(Request $request) {
+    $id = $request->id;
+    $persona = Persona::find($id);
+    if ($id) {
+      $vehiculos = Vehiculo::where('persona_id', $id)->get();
+      return view('vehiculo.by_user', ['vehiculos' => $vehiculos, 'persona' => $persona]);
+    }
+    return view('vehiculo.by_user', ['vehiculos' => [], 'persona' => $persona]);
+  }
 
   public function loginPublic(Request $request) {
     $credentials = $request->only('usuario', 'password');

@@ -24,6 +24,7 @@ Route::post('/panel/personal/create', [PersonaController::class, 'create']);
 Route::get('/panel/personal/list', [PersonaController::class, 'list']);
 Route::post('/panel/personal/delete', [PersonaController::class, 'delete']);
 Route::post('/panel/personal/update', [PersonaController::class, 'update']);
+Route::get('/panel/personal/vehiculo', [PersonaController::class, 'vehiculo']);
 Route::get('/panel/personal/getdatamodal/{id}', [PersonaController::class, 'edit_modal']);
 Route::get('/panel/personal/cars_user_modal/{id}', [PersonaController::class, 'cars_user']);
 
