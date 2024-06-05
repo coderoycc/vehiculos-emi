@@ -7,6 +7,7 @@ use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\QrregistroController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehiculoController;
+use App\Models\Vehiculo;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,16 +35,20 @@ Route::get('/panel/vehiculo/list', [VehiculoController::class, 'list']);
 Route::get('/panel/vehiculo/getdatamodal/{id}', [VehiculoController::class, 'edit_modal']);
 Route::post('/panel/vehiculo/update', [VehiculoController::class, 'update']);
 Route::post('/panel/vehiculo/baja_alta', [VehiculoController::class, 'baja_alta']);
+Route::get('/panel/vehiculo/docs_content', [VehiculoController::class, 'docs_content']);
 Route::get('/panel/reports', [VehiculoController::class, 'reports']);
 Route::get('/panel/reports/day', [VehiculoController::class, 'report_day']);
 Route::get('/panel/reports/all', [VehiculoController::class, 'report_all']);
+Route::get('/panel/reports/main', [VehiculoController::class, 'report']);
 
+Route::get('/panel/users/my_profile', [UserController::class, 'my_profile']);
 Route::get('/panel/users', [UserController::class, 'index']);
 Route::post('/panel/users/create', [UserController::class, 'create']);
 Route::get('/panel/users/list', [UserController::class, 'list']);
 Route::post('/panel/users/delete', [UserController::class, 'delete']);
 Route::get('/panel/users/getdatamodal/{id}', [UserController::class, 'edit_content']);
 Route::post('/panel/users/update', [UserController::class, 'update']);
+Route::post('/panel/users/change_pass', [UserController::class, 'change_pass']);
 
 Route::get('/panel/page/{page}', [PageController::class, 'index']);
 Route::get('/panel/logados', [AuthController::class, 'logados'])->name('logados');

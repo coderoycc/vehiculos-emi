@@ -6,7 +6,7 @@ use App\Models\Qrregistro;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use \Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class VehiculoController extends Controller {
 
@@ -86,7 +86,8 @@ class VehiculoController extends Controller {
     }
   }
   public function reports(Request $data) {
-    return view('vehiculo.reports', []);
+    $cantidades = Qrregistro::cantidades_hoy();
+    return view('vehiculo.reports', ['cantidades' => $cantidades]);
   }
   public function report_day(Request $data) {
     $fecha = date('Y-m-d');
@@ -98,6 +99,14 @@ class VehiculoController extends Controller {
     $vehiculosIn = Qrregistro::where('usado', 1)->where('tipo', 'INGRESO')->with('propietario')->with('vehiculo')->get();
     $vehiculosOut = Qrregistro::where('usado', 1)->where('tipo', 'SALIDA')->with('propietario')->with('vehiculo')->get();
     return view('reports.vehiculos2', ['vehiculosIn' => $vehiculosIn, 'vehiculosOut' => $vehiculosOut]);
+  }
+  public function report(Request $req) {
+    $start = $req->start ?? date('Y-m') . '-01';
+    $end = $req->end ?? date('Y-m-d');
+    $vehiculosIn = Qrregistro::where('usado', 1)->whereBetween('fechaGenerado', [$start, $end])->where('tipo', 'INGRESO')->with('propietario')->with('vehiculo')->get();
+    $vehiculosOut = Qrregistro::where('usado', 1)->whereBetween('fechaGenerado', [$start, $end])->where('tipo', 'SALIDA')->with('propietario')->with('vehiculo')->get();
+    $pdf = PDF::loadView('reports.main_report', ['vehiculosIn' => $vehiculosIn, 'vehiculosOut' => $vehiculosOut, 'start' => $start, 'end' => $end]);
+    return $pdf->stream();
   }
 
   public function save_documents(Request $request): array {
@@ -113,5 +122,14 @@ class VehiculoController extends Controller {
       }
     }
     return $arr_save;
+  }
+  public function docs_content(Request $req) {
+    $vehiculo = Vehiculo::find($req->id);
+    $nombres = ['doc' => 'DOCUMENTACION', 'ci' => "CARNET", 'lice' => "LICENCIA", 'ruat' => "RUAT", 'soat' => "SOAT", 'insp' => "INSP. VEHICULAR", 'img' => "IMAGEN"];
+    $cad_docs = $vehiculo->docs ?? '[]';
+    $docs_list = json_decode($cad_docs, true);
+    $colors = ['#97dc0c', '#26e0a0', '#9e38ee', '#38ee50', '#50e0ee', '#e4dc66', '#3f51b5'];
+    $view = view('vehiculo.modal_docs_content', ['docs' => $docs_list, 'colors' => $colors, 'nombres' => $nombres])->render();
+    return response()->json(['html' => $view, 'status' => true]);
   }
 }

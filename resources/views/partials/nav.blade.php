@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-custom navbar-mainbg">
-  <a class="navbar-brand navbar-logo" href="#">Control acceso</a>
+  <a class="navbar-brand navbar-logo" href="/panel/users/my_profile"><i class="fa-lg fa-brands fa-fort-awesome"
+      title="Mi perfil"></i>
+    CONTROL ACCESO</a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

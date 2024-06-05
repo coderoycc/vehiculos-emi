@@ -16,7 +16,7 @@ class AuthController extends Controller {
     $request->validate(['usuario' => 'required', 'password' => 'required']);
     $credentials = $request->only('usuario', 'password');
     if (Auth::attempt($credentials)) {
-      return redirect()->intended('/panel')->withSuccess('Login exitosos');
+      return redirect()->intended('/panel/personal')->withSuccess('Login exitosos');
     }
     return redirect("/panel/login")->withErrors('Credenciales incorrectas');
   }

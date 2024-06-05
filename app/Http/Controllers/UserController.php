@@ -68,4 +68,22 @@ class UserController extends Controller {
       return response()->json(['status' => false, 'message' => 'Error al actualizar usuario'], 500);
     }
   }
+  public function my_profile() {
+    $user = auth()->user();
+    return view('user.profile', compact('user'));
+  }
+  public function change_pass(Request $req) {
+    $user = auth()->user();
+    $user_n = User::find($user->id);
+    if (password_verify($req->pass, $user_n->password)) {
+      $user_n->password = bcrypt($req->new);
+      if ($user_n->save()) {
+        return response()->json(['success' => true, 'message' => 'Contraseña actualizada con exito']);
+      } else {
+        return response()->json(['success' => false, 'message' => 'Ocurrio error desconocido']);
+      }
+    } else {
+      return response()->json(['success' => false, 'message' => 'Contraseña anterior incorrecta']);
+    }
+  }
 }

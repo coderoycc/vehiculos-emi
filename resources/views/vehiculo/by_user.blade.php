@@ -146,20 +146,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row" id="docs_modal_content">
-
-
-            <div class="col-md-6 text-center mb-3">
-              <a href="" class="btn btn-primary" type="button">
-                DOS
-              </a>
-            </div>
-            <div class="col-md-6 text-center mb-3">
-              <a href="" class="btn fw-bold" style="--bs-btn-bg:#fdd000;" type="button">
-                TES
-              </a>
-            </div>
-          </div>
+          <div class="row" id="docs_modal_content"></div>
         </div>
         <div class="modal-footer d-flex justify-content-center">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

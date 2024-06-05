@@ -4,6 +4,7 @@ $(document).ready(async () => { })
 
 $(document).on('show.bs.modal', '#edit_vehiculo', modal_edit_open);
 $(document).on('show.bs.modal', '#modal_baja_alta', modal_baja_alta_open)
+$(document).on('show.bs.modal', '#docs_vehiculo', modal_open_docs)
 async function modal_edit_open(e) {
   const id = $(e.relatedTarget).data('id');
   const res = await $.ajax({
@@ -73,4 +74,17 @@ async function baja_alta() {
   } else {
     toast('Error', res.message, 'error', 2000)
   }
+}
+async function modal_open_docs(e) {
+  $("#docs_modal_content").html(`<div class="spinner-border m-5" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>`);
+  const id = e.relatedTarget.dataset.id;
+  const res = await $.ajax({
+    url: '/panel/vehiculo/docs_content',
+    type: 'GET',
+    data: { id },
+    dataType: 'json'
+  });
+  $("#docs_modal_content").html(res.html)
 }
