@@ -28,7 +28,7 @@ class VehiculoController extends Controller {
 
 
     if ($vehiculo->save()) {
-      return redirect('/panel/personal/vehiculo?id='.$request->idPersona)->with('success_create', 'Registro guardado exitosamente.');
+      return redirect('/panel/personal/vehiculo?id=' . $request->idPersona)->with('success_create', 'Registro guardado exitosamente.');
     } else {
       return redirect()->back()->with('error_create', 'Ha ocurrido un error al guardar el registro.');
     }
@@ -126,7 +126,7 @@ class VehiculoController extends Controller {
   }
   public function docs_content(Request $req) {
     $vehiculo = Vehiculo::find($req->id);
-    $nombres = ['doc' => 'DOCUMENTACION', 'ci' => "CARNET", 'lice' => "LICENCIA", 'ruat' => "RUAT", 'soat' => "SOAT", 'insp' => "INSP. VEHICULAR", 'img' => "IMAGEN"];
+    $nombres = ['doc' => 'COMP. DE PAGO', 'ci' => "CARNET", 'lice' => "LICENCIA", 'ruat' => "RUAT", 'soat' => "SOAT", 'insp' => "INSP. VEHICULAR", 'img' => "IMAGEN"];
     $cad_docs = $vehiculo->docs ?? '[]';
     $docs_list = json_decode($cad_docs, true);
     $colors = ['#97dc0c', '#26e0a0', '#9e38ee', '#38ee50', '#50e0ee', '#e4dc66', '#3f51b5'];

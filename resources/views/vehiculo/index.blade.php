@@ -54,8 +54,8 @@
         </div>
         <div class="col-md-4">
           <div class="form-floating mb-3">
-            <input type="hidden" name="idPersona" value="{{$persona->id}}">
-            <input type="text" class="form-control" value="{{strtoupper($persona->nombre)}}" readonly disabled>
+            <input type="hidden" name="idPersona" value="{{ $persona->id }}">
+            <input type="text" class="form-control" value="{{ strtoupper($persona->nombre) }}" readonly disabled>
             <label for="idPersona">Propietario (Persona)</label>
           </div>
         </div>
@@ -70,7 +70,7 @@
       <div class="row">
         <div class="col-md-3">
           <div class="mb-3">
-            <label for="formFile" class="form-label">Documentación</label>
+            <label for="formFile" class="form-label">Comprobante de pago</label>
             <input class="form-control" name="doc" type="file" accept="application/pdf" required>
           </div>
         </div>
@@ -111,7 +111,8 @@
           </div>
         </div>
       </div>
-      <button type="button" class="btn btn-secondary mt-2 float-start" onclick="history.back()"><i class="fa-lg fa-solid fa-arrow-left"></i> Volver</button>
+      <button type="button" class="btn btn-secondary mt-2 float-start" onclick="history.back()"><i
+          class="fa-lg fa-solid fa-arrow-left"></i> Volver</button>
       <button class="btn btn-success float-end mt-2" type="submit"><i class="fa fa-solid fa-floppy-disk"></i>
         Guardar</button>
     </form>
