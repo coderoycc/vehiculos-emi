@@ -64,5 +64,6 @@ Route::post('/login', [PersonaController::class, 'loginPublic'])->name('login_po
 
 Route::post('/logout', [PersonaController::class, 'logout'])->name('logout_public')->middleware('auth_public');
 Route::get('/misvehiculos', [PageController::class, 'listaMisVehiculos'])->name('listavehiculos')->middleware('auth_public');
+Route::post('/personal/change_pass', [PersonaController::class, 'change_pass']);
 Route::get('/seguimiento', [PageController::class, 'seguimiento'])->name('seguimiento')->middleware('auth_public');
 Route::post('/qrregistro/create', [QrregistroController::class, 'create']);

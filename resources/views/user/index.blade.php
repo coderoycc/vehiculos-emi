@@ -121,7 +121,7 @@
         </div>
         <div class="modal-body">
           <div class="alert alert-danger">
-            También <b>se eliminaran los registros</b> asociados a este usuario
+            Este usuario ya no podrá <b>ingresar al sistema</b>
           </div>
           <form id="delete_user_form" onsubmit="return false;">
             @csrf
@@ -130,8 +130,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteUser()">Sí,
-            eliminar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteUser()">Continuar</button>
         </div>
       </div>
     </div>

@@ -54,12 +54,8 @@
         </div>
         <div class="col-md-4">
           <div class="form-floating mb-3">
-            <select class="form-select" name="idPersona">
-              <option selected>--- Seleccionar Propietario ---</option>
-              @foreach ($personal as $persona)
-                <option value="{{ $persona->id }}">{{ $persona->nombre }}</option>
-              @endforeach
-            </select>
+            <input type="hidden" name="idPersona" value="{{$persona->id}}">
+            <input type="text" class="form-control" value="{{strtoupper($persona->nombre)}}" readonly disabled>
             <label for="idPersona">Propietario (Persona)</label>
           </div>
         </div>
@@ -115,6 +111,7 @@
           </div>
         </div>
       </div>
+      <button type="button" class="btn btn-secondary mt-2 float-start" onclick="history.back()"><i class="fa-lg fa-solid fa-arrow-left"></i> Volver</button>
       <button class="btn btn-success float-end mt-2" type="submit"><i class="fa fa-solid fa-floppy-disk"></i>
         Guardar</button>
     </form>
@@ -131,10 +128,6 @@
       })
     </script>
   @endif
-
-
-
-
   <script src="{{ asset('assets/datatables/datatables.jquery.min.js') }}"></script>
   <script src="{{ asset('assets/jquery/jqueryToast.min.js') }}"></script>
   <script src="{{ asset('assets/datatables/datatables.bootstrap5.min.js') }}"></script>

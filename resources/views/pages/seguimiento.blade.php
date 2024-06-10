@@ -13,7 +13,6 @@
       background: #EEECF7;
       border: 0;
       color: #174287;
-      width: 98%;
       font-weight: bold;
       border-radius: 20px;
       height: 40px;

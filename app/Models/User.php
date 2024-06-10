@@ -23,7 +23,8 @@ class User extends Authenticatable {
     'usuario',
     'password',
     'rol',
-    'ci'
+    'ci',
+    'state'
   ];
 
   /**

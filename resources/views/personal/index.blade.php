@@ -169,18 +169,7 @@
       </div>
     </div>
   </div>
-  @if (session('success_create'))
-    <script>
-      $.toast({
-        heading: 'Proceso exitoso',
-        icon: 'success',
-        text: 'Vehículo guardado con exito',
-        showHideTransition: 'slide',
-        position: 'top-right',
-        hideAfter: 2300
-      })
-    </script>
-  @endif
+  
   <script src="{{ asset('assets/datatables/datatables.jquery.min.js') }}"></script>
   <script src="{{ asset('assets/datatables/datatables.bootstrap5.min.js') }}"></script>
   <script src="{{ asset('assets/jquery/jqueryToast.min.js') }}"></script>

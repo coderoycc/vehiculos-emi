@@ -60,8 +60,8 @@ i {
 }
 
 #navbarSupportedContent ul li button {
-  color: rgba(30, 29, 29, 0.5);
-  background-color: #ff9fc0;
+  color: var(--bs-white);
+  background-color: var(--bs-red);
   width: 100%;
   border: none;
   /* border-radius: 20px 0px 0px 20px; */

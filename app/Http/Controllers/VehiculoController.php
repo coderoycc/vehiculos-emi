@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Persona;
 use App\Models\Qrregistro;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class VehiculoController extends Controller {
 
 
     if ($vehiculo->save()) {
-      return redirect('/panel/personal')->with('success_create', 'Registro guardado exitosamente.');
+      return redirect('/panel/personal/vehiculo?id='.$request->idPersona)->with('success_create', 'Registro guardado exitosamente.');
     } else {
       return redirect()->back()->with('error_create', 'Ha ocurrido un error al guardar el registro.');
     }
@@ -53,13 +54,13 @@ class VehiculoController extends Controller {
     }
   }
 
-  public function index() {
-    $personal = \App\Models\Persona::all();
-    return view('vehiculo.index', ['personal' => $personal]);
+  public function index(Request $req) {
+    $propietario = Persona::find($req->id);
+    return view('vehiculo.index', ['persona' => $propietario]);
   }
   public function edit_modal($id) {
     $vehiculo = Vehiculo::find($id);
-    $vehiculo->persona = \App\Models\Persona::find($vehiculo->persona_id);
+    $vehiculo->persona = Persona::find($vehiculo->persona_id);
     $view = view('vehiculo.edit_content', ['vehiculo' => $vehiculo])->render();
     return response()->json(['data' => $view, 'status' => true]);
   }

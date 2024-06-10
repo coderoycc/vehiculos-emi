@@ -6,6 +6,7 @@
   @media (max-width: 990px) {
     .btn.btn-danger.btn-custom::after {
       font-weight: bold;
+      width:130px !important;
       content: " SALIR ";
     }
   }
@@ -30,7 +31,8 @@
           <a class="nav-link text-white" data-page="seguimiento" href="{{ route('seguimiento') }}">Seguimiento</a>
         </li>
       </ul>
-      <div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-secondary rounded-circle" title="CAMBIAR CONTRASEÑA" type="button" data-bs-toggle="modal" data-bs-target="#modal_change_pass"><i class="fa-lg fa-solid fa-lock"></i></button>
         <form id="form_logout" method="POST" action="{{ route('logout_public') }}">
           @csrf
           <button class="btn btn-danger btn-custom" type="submit" title="SALIR" id="form_logout_btn"><i
@@ -40,6 +42,36 @@
     </div>
   </div>
 </nav>
+
+{{-- Modal change pass --}}
+<div class="modal modal-sm fade" id="modal_change_pass" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h1 class="modal-title fs-5" >Cambiar tu contraseña</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @csrf
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="pass" placeholder="Password">
+          <label for="pass">Contraseña actual</label>
+        </div>
+
+        <div class="form-floating mb-2">
+          <input type="password" class="form-control" id="new" placeholder="New Password">
+          <label for="new">Nueva contraseña</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="change_pass()">Cambiar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
   $(document).ready(() => {
     var path = window.location.pathname.split("/").pop();
@@ -53,4 +85,34 @@
   $(document).on('submit', '#form_logout', () => {
     $('#form_logout_btn').attr('disabled', true)
   })
+  async function change_pass(){
+    const pass = $("#pass").val();
+    const new_ = $("#new").val();
+    const _token = $("input[name='_token']").val()
+    if(pass != "" && new_ != ""){
+      const res = await $.ajax({
+        url: '/personal/change_pass',
+        type: 'POST',
+        dataType: 'json',
+        data: { pass, new: new_, _token }
+      });
+      if(res.success){
+        toast('Operación exitosa', 'Contraseña cambiada', 'success', 2700);
+        $("#modal_change_pass").modal('hide')
+      }else{
+        toast('Fallo en la operación', res.message, 'error', 3000);
+      }
+    }else{
+      toast('Llene ambos campos', '', 'warning', 2700);
+    }
+  }
+  function toast(title, text, icon, time = 2500){
+    $.toast({
+      heading: title,
+      icon, text,
+      showHideTransition: 'slide',
+      position: 'top-right',
+      hideAfter: time
+    });
+  }
 </script>

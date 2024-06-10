@@ -13,6 +13,7 @@ class UserController extends Controller {
     $user->usuario = $request->usuario;
     $user->rol = $request->rol;
     $user->ci = $request->ci;
+    $user->state = 1;
     $user->password = bcrypt($request->usuario);
     if ($user->save()) {
       return response()->json(['status' => true, 'message' => 'Usuario creado con exito'], 200);
@@ -33,7 +34,7 @@ class UserController extends Controller {
     }
   }
   public function list() {
-    $users = User::all();
+    $users = User::where('state', 1)->get();
     return response()->json(['data' => $users, 'status' => true]);
   }
   public function index() {
@@ -42,10 +43,11 @@ class UserController extends Controller {
   public function delete(Request $req) {
     $user = User::find($req->user_id);
     if ($user) {
-      if ($user->delete()) {
-        return response()->json(['status' => true, 'message' => 'Usuario eliminado con exito'], 200);
+      $user->state = 0;
+      if ($user->save()) {
+        return response()->json(['status' => true, 'message' => 'Usuario dado de baja con exito'], 200);
       } else {
-        return response()->json(['status' => false, 'message' => 'Error al eliminar usuario'], 500);
+        return response()->json(['status' => false, 'message' => 'Error al dar de baja al usuario'], 500);
       }
     } else {
       return response()->json(['status' => false, 'message' => 'Usuario no encontrado'], 200);

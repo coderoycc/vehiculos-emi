@@ -11,7 +11,8 @@ class HomeController extends Controller { // pagina panel admin
    * @return \Illuminate\Contracts\Support\Renderable
    */
   public function index() {
-    $personal = \App\Models\Persona::all();
-    return view('vehiculo.index', ['personal' => $personal]);
+    // $personal = \App\Models\Persona::all();
+    return redirect()->intended('/panel/reports');
+    // return view('vehiculo.index', ['personal' => $personal]);
   }
 }

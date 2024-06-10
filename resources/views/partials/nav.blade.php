@@ -12,9 +12,6 @@
         <div class="left"></div>
         <div class="right"></div>
       </div>
-      <li class="nav-item" data-page="vehiculos">
-        <a class="nav-link" href="/panel/vehiculo"><i class="fa fa-solid fa-car"></i> Agregar vehículo</a>
-      </li>
       @can('isAdmin')
         <li class="nav-item" data-page="administrador">
           <a class="nav-link" href="/panel/users"><i class="fa fa-solid fa-user-shield"></i> Administradores</a>

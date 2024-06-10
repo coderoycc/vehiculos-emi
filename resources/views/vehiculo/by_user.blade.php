@@ -28,10 +28,13 @@
       <div class="col-md-4 mt-2">
         <div class="card shadow">
           <div class="card-body">
-            <div class="fs-3 text-secondary">Vehículos de usuario</div>
+            <div class="fs-3 text-secondary">Vehículos del usuario: </div>
             <hr>
             <div class="fs-5 text-secondary fw-semibold">{{ strtoupper($persona->nombre) }}</div>
             <div class="fs-5 text-secondary">{{ $persona->celular }}</div>
+          </div>
+          <div class="card-footer mx-auto">
+            <a class="btn btn-primary" href="/panel/vehiculo?id={{$persona->id}}"><i class="fa-lg fa fa-solid fa-plus"></i> Agregar nuevo vehículo</a>
           </div>
         </div>
       </div>
@@ -137,8 +140,20 @@
     </div>
   </div>
 
+  @if (session('success_create'))
+    <script>
+      $.toast({
+        heading: 'Proceso exitoso',
+        icon: 'success',
+        text: 'Vehículo guardado con exito',
+        showHideTransition: 'slide',
+        position: 'top-right',
+        hideAfter: 2300
+      })
+    </script>
+  @endif
   {{-- MODAL VER DOCUMENTOS --}}
-  <div class="modal fade" id="docs_vehiculo" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="docs_vehiculo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -159,6 +174,7 @@
   <script src="{{ asset('assets/datatables/datatables.bootstrap5.min.js') }}"></script>
   <script src="{{ asset('assets/jquery/jqueryToast.min.js') }}"></script>
   <script src="{{ asset('js/vehiculo.js') }}"></script>
+  <script src="{{asset('assets/sweetalert2/sweetalert2.min.js')}}"></script>
 </body>
 
 </html>

@@ -65,7 +65,6 @@
       background: #EEECF7;
       border: 0;
       color: #174287;
-      width: 98%;
       font-weight: bold;
       border-radius: 20px;
       height: 40px;
@@ -114,10 +113,15 @@
   <div class="container mt-4">
     <div class="row">
       @foreach ($vehiculos as $vehiculo)
+      <?php
+        $docs = $vehiculo->docs ?? '[]';
+        $url = json_decode($docs, true);
+        $url = !isset($url['img']) ? 'images/auto.png' : 'storage/vehiculos/' . $url['img'];
+      ?>
         <div class="col-md-3">
           <div class="animate__animated animate bounce card">
             <div class="container mt-3">
-              <img src="{{ asset('images/auto.png') }}" class="card-img-top " alt="vehiculo">
+              <img src="{{ asset($url) }}" class="card-img-top " alt="vehiculo">
             </div>
             <div class="card-body">
               <h5 class="card-title ms-1 text-center">{{ $vehiculo->placa }}</h5>

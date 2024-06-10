@@ -88,4 +88,18 @@ class PersonaController extends Controller {
     $view = view('personal.cars_content', compact('vehiculos'))->render();
     return response()->json(['status' => true, 'html' => $view], 200);
   }
+  public function change_pass(Request $req){
+    $user = json_decode(session()->get('persona'));
+    if(password_verify($req->pass, $user->password)){
+      $persona = Persona::find($user->id);
+      $persona->password = bcrypt($req->new);
+      if($persona->save()){
+        return response()->json(['success' => true, 'message' => 'Cambiado correctamente']);
+      }else{
+        return response()->json(['success' => false, 'message' => 'Ocurrió un error']);
+      }
+    }else{
+      return response()->json(['success'=>false, 'message' => 'Su contraseña actual es incorrecta']);
+    }
+  }
 }
