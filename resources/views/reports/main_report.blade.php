@@ -84,12 +84,10 @@
   <h2 class="text-center fw-bold mb-0">REPORTE INGRESOS Y SALIDAS DE VEHICULOS</h2>
   <h4 class="text-center text-muted mt-0">Desde {{ date('d/m/Y', strtotime($start)) }} hasta
     {{ date('d/m/Y', strtotime($end)) }}</h4>
-  {{-- <pre>
-    {{ $vehiculosIn }}
-  </pre> --}}
+
   <table class="table">
     <tr>
-      <td colspan="5" class="text-center header">INGRESO DE VEHÍCULOS</td>
+      <td colspan="6" class="text-center header">INGRESO DE VEHÍCULOS</td>
       <td class="text-end header">Cantidad: <b>{{ count($vehiculosIn) }}</b></td>
     </tr>
     <tr class="text-center">
@@ -98,11 +96,12 @@
       <th>COLOR</th>
       <th>PROPIETARIO</th>
       <th>C.I.</th>
+      <th>REGISTRADO POR</th>
       <th>FECHA HORA INGRESO</th>
     </tr>
     @if (count($vehiculosIn) == 0)
       <tr>
-        <td colspan="6" class="text-center">Sin ingreso de vehículos para el rango de fechas</td>
+        <td colspan="7" class="text-center">Sin ingreso de vehículos para el rango de fechas</td>
       </tr>
     @endif
     @foreach ($vehiculosIn as $vin)
@@ -112,14 +111,15 @@
         <td>{{ $vin->vehiculo->color }}</td>
         <td>{{ $vin->propietario->nombre }}</td>
         <td>{{ $vin->propietario->ci }}</td>
-        <td class="text-end">{{ date('d/m/Y H:i', strtotime($vin->fechaRegistro)) }}</td>
+        <td>{{ $vin->registered_by->nombre }}</td>
+        <td class="text-end">{{ date('d/m/Y H:i', strtotime($vin->fechaGenerado)) }}</td>
       </tr>
     @endforeach
   </table>
   <div class="h-30x"></div>
   <table class="table">
     <tr>
-      <td colspan="5" class="text-center header">SALIDA DE VEHÍCULOS</td>
+      <td colspan="6" class="text-center header">SALIDA DE VEHÍCULOS</td>
       <td class="text-end header">Cantidad: <b>{{ count($vehiculosOut) }}</b></td>
     </tr>
     <tr class="text-center">
@@ -128,11 +128,12 @@
       <th>COLOR</th>
       <th>PROPIETARIO</th>
       <th>C.I.</th>
+      <th>REGISTRADO POR</th>
       <th>FECHA HORA SALIDA</th>
     </tr>
     @if (count($vehiculosOut) == 0)
       <tr>
-        <td colspan="6" class="text-center">Sin salida de vehículos para el rango de fechas</td>
+        <td colspan="7" class="text-center">Sin salida de vehículos para el rango de fechas</td>
       </tr>
     @endif
     @foreach ($vehiculosOut as $vou)
@@ -142,8 +143,42 @@
         <td>{{ $vou->vehiculo->color }}</td>
         <td>{{ $vou->propietario->nombre }}</td>
         <td>{{ $vou->propietario->ci }}</td>
-        <td class="text-end">{{ date('d/m/Y H:i', strtotime($vou->fechaRegistro)) }}</td>
+        <td>{{ $vou->registered_by->nombre }}</td>
+        <td class="text-end">{{ date('d/m/Y H:i', strtotime($vou->fechaGenerado)) }}</td>
       </tr>
+    @endforeach
+  </table>
+  <div class="h-30x"></div>
+  <table class="table">
+    <tr>
+      <td colspan="5" class="text-center header">INVITADOS</td>
+      <td class="text-end header">Cantidad: <b>{{ count($invitados) }}</b></td>
+    </tr>
+    <tr class="text-center">
+      <th>NOMBRE</th>
+      <th class="w-80x">PLACA</th>
+      <th>DETALLES</th>
+      <th>FECHA HORA DE ENTRADA</th>
+      <th>FECHA HORA DE SALIDA</th>
+      <th>REGISTRADO POR</th>
+    </tr>
+    @if (count($invitados) == 0)
+    <tr>
+      <td colspan="6" class="text-center">Sin invitados para el rango de fechas </td>
+    </tr>
+    @endif
+    @foreach ($invitados as $inv)
+    <?php 
+      $fecha_salida = $inv->salida_en  == NULL ? 'Sin salida registrada' : date( 'd/m/Y H:i', strtotime($inv->salida_en));
+    ?>
+    <tr>
+      <td>{{ $inv->nombre }}</td>
+      <td class="w-80x">{{ $inv->placa }}</td>
+      <td>{{ $inv->detalles }}</td>
+      <td>{{ date('d/m/Y H:i', strtotime($inv->ingreso_en)) }} </td>
+      <td>{{ $fecha_salida }} </td>
+      <td>{{ $inv->registered_by->nombre }}</td>
+    </tr>
     @endforeach
   </table>
 </body>

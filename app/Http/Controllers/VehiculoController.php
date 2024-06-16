@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guest;
 use App\Models\Persona;
 use App\Models\Qrregistro;
 use App\Models\Vehiculo;
@@ -104,12 +105,49 @@ class VehiculoController extends Controller {
   public function report(Request $req) {
     $start = $req->start ?? date('Y-m') . '-01';
     $end = $req->end ?? date('Y-m-d');
-    $vehiculosIn = Qrregistro::where('usado', 1)->whereBetween('fechaGenerado', [$start, $end])->where('tipo', 'INGRESO')->with('propietario')->with('vehiculo')->get();
-    $vehiculosOut = Qrregistro::where('usado', 1)->whereBetween('fechaGenerado', [$start, $end])->where('tipo', 'SALIDA')->with('propietario')->with('vehiculo')->get();
-    $pdf = PDF::loadView('reports.main_report', ['vehiculosIn' => $vehiculosIn, 'vehiculosOut' => $vehiculosOut, 'start' => $start, 'end' => $end]);
+    $end .= ' 23:59:59';
+    $vehiculosIn = Qrregistro::where('usado', 1)
+      ->whereBetween('fechaGenerado', [$start, $end])
+      ->where('tipo', 'INGRESO')
+      ->with('propietario')
+      ->with('vehiculo')
+      ->with('registered_by')
+      ->get();
+    $vehiculosOut = Qrregistro::where('usado', 1)
+      ->whereBetween('fechaGenerado', [$start, $end])
+      ->where('tipo', 'SALIDA')
+      ->with('propietario')
+      ->with('vehiculo')
+      ->with('registered_by')
+      ->get();
+    $invitados = Guest::whereBetWeen('ingreso_en', [$start, $end])
+      ->with('registered_by')
+      ->get();
+    $pdf = PDF::loadView('reports.main_report', [
+      'vehiculosIn' => $vehiculosIn, 
+      'vehiculosOut' => $vehiculosOut, 
+      'start' => $start, 
+      'end' => $end, 
+      'invitados' => $invitados
+    ]);
     return $pdf->stream();
   }
-
+  public function update_document(Request $req){
+    $document = $req->file('file');
+    if($req->file_name == '') 
+      return response()->json(['success' => false, 'message' => 'Nombre de archivo no valido']);
+    if($document){
+      $name = $req->file_name;
+      $rr = $document->storeAs('public/vehiculos', $name);
+      if($rr){
+        return response()->json(['success' => true, 'message' => 'Archivo guardado exitosamente']);
+      }else{
+        return response()->json(['success' => false, 'message' => 'Error al guardar archivo']);
+      }
+    }else{
+      return response()->json(['success' => false, 'message' => 'No se registro nungun documento']);
+    }
+  }
   public function save_documents(Request $request): array {
     $arr_save = [];
     $arr_names = ['doc', 'ci', 'lice', 'ruat', 'soat', 'insp', 'img'];

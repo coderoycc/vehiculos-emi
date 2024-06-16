@@ -90,7 +90,7 @@ async function modal_open_docs(e) {
     $("#docs_modal_content").html(res.html);
 }
 
-async function upload_file(file_name, name, pdf, id) {
+async function upload_file(file_name, name, pdf) {
     let type = pdf ? "application/pdf" : "image/jpeg, image/png";
     const { value: file } = await Swal.fire({
         title: "Seleccione nuevo documento " + name,
@@ -105,23 +105,29 @@ async function upload_file(file_name, name, pdf, id) {
         formData.append("file", file);
         formData.append("name", name);
         formData.append("file_name", file_name);
-        formData.append("id_vehiculo", id);
         formData.append("pdf", pdf);
         const res = await $.ajax({
             type: "POST",
-            url: "/upload_file",
+            url: "/api/vehiculo/upload-doc",
             data: formData,
             contentType: false,
             processData: false,
-            success: function (res) {
-                console.log(res);
-            },
         });
-        Swal.fire({
-            icon: "success",
-            title: "Cambio realizado",
-            showConfirmButton: false,
-            timer: 1500,
-        });
+        if(res.success){
+          Swal.fire({
+              icon: "success",
+              title: "Cambio realizado",
+              showConfirmButton: false,
+              timer: 1500,
+          });
+        }else{
+          console.log(res)
+          Swal.fire({
+              icon: "error",
+              title: "Ocurrio un error al guardar imagen",
+              showConfirmButton: false,
+              timer: 1500,
+          });
+        }
     }
 }

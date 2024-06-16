@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-custom navbar-mainbg">
-  <a class="navbar-brand navbar-logo" href="/panel/users/my_profile"><i class="fa-lg fa-brands fa-fort-awesome"
-      title="Mi perfil"></i>
+  <a class="navbar-brand navbar-logo" href="/panel/users/my_profile">
+    {{-- <i class="fa-lg fa-brands fa-fort-awesome" title="Mi perfil"></i> --}}
+    <img src="{{ asset('images/icon_emi.png') }}" alt="Logo" width="45" />
     CONTROL ACCESO</a>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

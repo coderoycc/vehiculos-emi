@@ -25,4 +25,7 @@ class Qrregistro extends Model {
   public function vehiculo() {
     return $this->belongsTo(Vehiculo::class);
   }
+  public function registered_by(){
+    return $this->belongsTo(User::class, 'usuario_id');
+  }
 }

@@ -16,8 +16,8 @@
     }
 
     .profile-image-pic {
-      height: 200px;
-      width: 200px;
+      height: 150px;
+      width: 150px;
       object-fit: cover;
     }
 
@@ -32,18 +32,24 @@
     a {
       text-decoration: none;
     }
+    body{
+      background-image: url('/images/bg_auth_public.jpg');
+      /* image centered in X and Y*/
+      background-position: center;
+      background-size: cover;
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="container" >
     <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <h2 class="text-center text-dark mt-4">Control de vehículos</h2>
+      <div class="col-md-6 offset-md-3" style="max-height: 100vh">
+        <h2 class="text-center text-light mt-4">Control de vehículos</h2>
         <div class="card my-5">
           <form action="{{ route('login_post') }}" method="POST" class="card-body cardbody-color p-lg-5">
             @csrf
-            <div class="text-center">
+            <div class="text-center mt-1">
               <img src="{{ asset('images/logo_emi0.png') }}"
                 class="img-fluid profile-image-pic img-thumbnail rounded-shield my-3" width="200px" alt="profile">
             </div>

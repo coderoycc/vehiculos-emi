@@ -15,7 +15,7 @@ return new class extends Migration {
       $table->string('placa', 10)->nullable();
       $table->string('nombre', 120)->nullable();
       $table->string('detalles', 255)->default('');
-      $table->integer('estado')->default(1);
+      $table->integer('estado')->default(1)->comment('1: ingreso, 0: salida');
       $table->dateTime('ingreso_en')->default(DB::raw('CURRENT_TIMESTAMP'));
       $table->dateTime('salida_en')->nullable();
       $table->foreignId('usuario_id')->nullable()->constrained('usuario'); // usuario que registro salida

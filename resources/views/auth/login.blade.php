@@ -76,6 +76,12 @@
       background-color: #2c3e50;
       /* Warna latar button saat hover */
     }
+    body{
+      background-image: url('/images/login_adm_bg.jpg');
+      /*image repeat none*/
+      background-size: cover;
+      
+    }
   </style>
 </head>
 

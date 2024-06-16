@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\QrregistroController;
-use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehiculoController;
 use Illuminate\Http\Request;
@@ -17,3 +17,5 @@ Route::get('/qr/{hash}', [QrregistroController::class, 'verificarqr']);
 // Route::post('/qrregister/register', []);
 Route::post('/qr/register', [QrregistroController::class, 'registrar']);
 Route::get('/qr/getqr/{id}', [QrregistroController::class, 'generarqr']);
+Route::post('/guest/create_entry', [GuestController::class, 'create_entry']);
+Route::post('/vehiculo/upload-doc', [VehiculoController::class, 'update_document']);
