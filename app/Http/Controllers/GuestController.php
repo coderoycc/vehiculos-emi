@@ -13,16 +13,16 @@ class GuestController extends Controller {
       'user_id' => 'required',
     ]);
     $guest = new Guest([
-      'nombre' => $req->nombre ?? '', 
-      'placa' => $req->placa, 
-      'detalles' =>$req->detalles ?? '',
-      'user_id' => $req->user_id
+      'nombre' => $req->nombre ?? '',
+      'placa' => $req->placa,
+      'detalles' => $req->detalles ?? '',
+      'usuario_id' => $req->user_id
     ]);
 
-    if($guest->save()){
-      return response()->json(['message' => 'Visitante registrado'], 200);
-    }else{
-      return response()->json(['message' => 'Ocurrio un error al registrar visitante']);
+    if ($guest->save()) {
+      return response()->json(['status' => true, 'message' => 'Visitante registrado'], 200);
+    } else {
+      return response()->json(['status' => false, 'message' => 'Ocurrio un error al registrar visitante']);
     }
   }
 }

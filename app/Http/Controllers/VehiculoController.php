@@ -124,27 +124,27 @@ class VehiculoController extends Controller {
       ->with('registered_by')
       ->get();
     $pdf = PDF::loadView('reports.main_report', [
-      'vehiculosIn' => $vehiculosIn, 
-      'vehiculosOut' => $vehiculosOut, 
-      'start' => $start, 
-      'end' => $end, 
+      'vehiculosIn' => $vehiculosIn,
+      'vehiculosOut' => $vehiculosOut,
+      'start' => $start,
+      'end' => $end,
       'invitados' => $invitados
     ]);
     return $pdf->stream();
   }
-  public function update_document(Request $req){
+  public function update_document(Request $req) {
     $document = $req->file('file');
-    if($req->file_name == '') 
+    if ($req->file_name == '')
       return response()->json(['success' => false, 'message' => 'Nombre de archivo no valido']);
-    if($document){
+    if ($document) {
       $name = $req->file_name;
       $rr = $document->storeAs('public/vehiculos', $name);
-      if($rr){
+      if ($rr) {
         return response()->json(['success' => true, 'message' => 'Archivo guardado exitosamente']);
-      }else{
+      } else {
         return response()->json(['success' => false, 'message' => 'Error al guardar archivo']);
       }
-    }else{
+    } else {
       return response()->json(['success' => false, 'message' => 'No se registro nungun documento']);
     }
   }
